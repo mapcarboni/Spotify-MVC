@@ -12,7 +12,6 @@ class Song {
     play() {
         this.plays += 1;
     }
-
 }
 
 module.exports = Song;

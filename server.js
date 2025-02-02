@@ -1,5 +1,5 @@
 // 1. Carregar variáveis de ambiente
-require('dotenv').config();
+require("dotenv").config();
 
 // 2. Importação das dependências
 const express = require("express");
@@ -11,8 +11,8 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // 4. Middlewares
-app.use(cors());  // Habilitar CORS
-app.use(express.json());  // Habilitar o parsing de JSON nas requisições
+app.use(cors()); // Habilitar CORS
+app.use(express.json()); // Habilitar o parsing de JSON nas requisições
 
 // 5. Definir as rotas a serem usadas
 app.use("/api", songRoutes);

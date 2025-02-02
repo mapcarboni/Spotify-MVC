@@ -5,13 +5,13 @@ class SongList {
     addSong(song) {
         this.songs.push(song);
     }
-    getAllSongs(){
+    getAllSongs() {
         return this.songs;
     }
 
-    getSongById(id){
-        const song = this.songs.find(song => song.id == id);
-        if(!song){
+    getSongById(id) {
+        const song = this.songs.find((song) => song.id == id);
+        if (!song) {
             throw new Error("Música não encontrada");
         }
         return song;
@@ -24,15 +24,15 @@ class SongList {
     }
 
     deleteSong(id) {
-        this.songs = this.songs.filter(song => song.id != id);
+        this.songs = this.songs.filter((song) => song.id != id);
     }
-    
-    getTotalSongs(){
+
+    getTotalSongs() {
         return this.songs.length;
     }
-    
+
     getTop10Songs() {
-        return this.songs.sort((a,b) => b.plays - a.plays).slice(0, 10);
+        return this.songs.sort((a, b) => b.plays - a.plays).slice(0, 10);
     }
 }
 

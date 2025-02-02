@@ -3,23 +3,26 @@ const SongList = require("../models/SongList");
 
 const lista = new SongList();
 
-const musica1 = new Song('Parece', 'Luan Santana', '3:21', 100);
+const musica1 = new Song("Parece", "Luan Santana", "3:21", 100);
 lista.addSong(musica1);
 
-lista.addSong(new Song('Boiadeira', 'Ana Castela', '3:11', 220));
+lista.addSong(new Song("Boiadeira", "Ana Castela", "3:11", 220));
 
 const router = {
     addSong: (req, res) => {
         try {
-            const { title, singer, duration, plays } =  req.body;
-            if(!title || !singer || !duration) {
-                throw new Error('Preencha todos os campos!')
+            const { title, singer, duration, plays } = req.body;
+            if (!title || !singer || !duration) {
+                throw new Error("Preencha todos os campos!");
             }
-            const music = new Song (title, singer, duration, plays)
+            const music = new Song(title, singer, duration, plays);
             lista.addSong(music);
-            res.status(200).json({message: "Criado com sucesso"});
+            res.status(200).json({ message: "Criado com sucesso", music });
         } catch (error) {
-            res.status(400).json({message: "Erro ao criar musica", error});
+            res.status(400).json({
+                message: "Erro ao criar música",
+                error: error.message,
+            });
         }
     },
 
@@ -28,7 +31,10 @@ const router = {
             const songs = lista.getAllSongs();
             res.status(200).json(songs);
         } catch (error) {
-            res.status(404).json({message: 'Erro ao buscar musicas', error});
+            res.status(404).json({
+                message: "Erro ao buscar musicas",
+                error: error.message,
+            });
         }
     },
 
@@ -38,8 +44,8 @@ const router = {
             res.status(200).json(lista.getSongById(id));
         } catch (error) {
             res.status(404).json({
-                message: 'Erro ao buscar musica por id',
-                error
+                message: "Erro ao buscar musica por id",
+                error: error.message,
             });
         }
     },
@@ -48,18 +54,26 @@ const router = {
         try {
             res.status(200).json(lista.updateSong(req.params.id, req.body));
         } catch (error) {
-            res.status(404).json('Erro ao atualizar', error)
+            res.status(404).json({
+                message: "Erro ao atualizar",
+                error: error.message,
+            });
         }
     },
 
     deleteSong: (req, res) => {
         try {
-            lista.deleteSong(req.params.id);
+            const song = req.params.id;
+            lista.deleteSong(song);
             res.status(200).json({
-                message: 'Musica deletada com sucesso'
-            })
+                message: "Musica deletada com sucesso",
+                song,
+            });
         } catch (error) {
-            res.status(404).json('Erro ao deletar musica', error);
+            res.status(404).json({
+                message: "Erro ao deletar musica",
+                error: error.message,
+            });
         }
     },
 
@@ -68,10 +82,12 @@ const router = {
             const songs = lista.getTop10Songs();
             res.status(200).json(songs);
         } catch (error) {
-            res.status(404).json('Erro ao buscar Top10', error);
+            res.status(404).json({
+                message: "Erro ao buscar Top10",
+                error: error.message,
+            });
         }
-    }
-
+    },
 };
 
 module.exports = router;
