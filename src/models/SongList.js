@@ -18,7 +18,7 @@ class SongList {
     }
 
     updateSong(id, updateData) {
-        const song = getSongById(id);
+        const song = this.getSongById(id);
         Object.assign(song, updateData);
         return song;
     }
